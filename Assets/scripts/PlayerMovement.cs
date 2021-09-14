@@ -4,11 +4,23 @@ using UnityEngine;
 
 
 public class PlayerMovement : MonoBehaviour
-{  
+{
+    public int maxHealth = 20;
+    public int currentHealth;
+
+
+    public HealthBar healthBar;
+
+    void Start()
+    {
+        currentHealth = maxHealth;
+        healthBar.SetMaxHealth(maxHealth);
+
+    }
     public Rigidbody2D rb;
     public Camera cam;
     // Update is called once per frame
-    
+
     Vector3 playerPosition;
     Vector2 movement;
     Vector2 mousePos;
@@ -17,6 +29,14 @@ public class PlayerMovement : MonoBehaviour
     public static int turn = 1;
     void Update()
     {
+
+      if(Input.GetKeyDown(KeyCode.Space)){
+        TakeDamage(2);
+      }
+
+
+
+
         mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
         if(PlayerMovement.turn == 1)
             playerPosition = GameObject.Find("Player1").transform.position;
@@ -41,5 +61,12 @@ public class PlayerMovement : MonoBehaviour
         Vector2 lookDir = mousePos;
         float angle = Mathf.Atan2(-1 * lookDir.y, -1 * lookDir.x) * Mathf.Rad2Deg;
         rb.rotation = angle;
+    }
+    void TakeDamage(int damage)
+    {
+
+        currentHealth -= damage;
+        healthBar.SetHealth(currentHealth);
+
     }
 }
