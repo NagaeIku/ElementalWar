@@ -9,15 +9,15 @@ public class PlayerMovement : MonoBehaviour
 
     public HealthBar healthBarOne;
     public HealthBar healthBarTwo;
-
+    public float playermovementspeed=1;
     void Start()
     {
-        
+
         // currentHealth = maxHealth;
         // healthBar.SetMaxHealth(maxHealth);
         healthBarOne = GameObject.Find("CanvasOne").GetComponentInChildren(typeof(HealthBar)) as HealthBar;;
         healthBarTwo = GameObject.Find("CanvasTwo").GetComponentInChildren(typeof(HealthBar)) as HealthBar;
-        
+
         healthBarOne.SetMaxHealth(maxHealth);
         healthBarTwo.SetMaxHealth(maxHealth);
 
@@ -48,7 +48,18 @@ public class PlayerMovement : MonoBehaviour
         mousePos.y = mousePos.y - playerPosition.y;
         // Debug.Log(mousePos);
         // Debug.Log(player1Position);
-
+        if (Input.GetKey(KeyCode.RightArrow)){
+          this.gameObject.transform.position+=new Vector3(0.1f*playermovementspeed,0,0);
+        }
+        if (Input.GetKey(KeyCode.LeftArrow)){
+          this.gameObject.transform.position-=new Vector3(0.1f*playermovementspeed,0,0);
+        }
+        if (Input.GetKey(KeyCode.UpArrow)){
+          this.gameObject.transform.position+=new Vector3(0,0.1f*playermovementspeed,0);
+        }
+        if (Input.GetKey(KeyCode.DownArrow)){
+          this.gameObject.transform.position-=new Vector3(0,0.1f*playermovementspeed,0);
+        }
     }
     void Player1Turn()
     {
