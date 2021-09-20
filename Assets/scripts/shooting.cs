@@ -5,7 +5,7 @@ using UnityEngine;
 public class shooting : MonoBehaviour
 {
     // Start is called before the first frame update
-    
+
     public Transform firePoint;
     public GameObject bulletPrefab;
 
@@ -28,9 +28,9 @@ public class shooting : MonoBehaviour
     private void Start()
     {
         cam = Camera.main;
-        tl = GetComponent<TrajectoryLine>();
+        //tl = GetComponent<TrajectoryLine>();
+        InvokeRepeating ("Shoot", 0.5f, 0.5f);
     }
-
     // Update is called once per frame
     void Update()
     {
@@ -39,32 +39,13 @@ public class shooting : MonoBehaviour
         else
             playerPosition = GameObject.Find("Player2").transform.position;
         playerPosition.z = 15;
-        if (Input.GetMouseButtonDown(0)){
-            startPoint = cam.ScreenToWorldPoint(Input.mousePosition);
-            startPoint.z = 15;
-            // Debug.Log("startpoint" + startPoint);
-        }
-        if (Input.GetMouseButton(0)){
-            Vector3 currentPoint = cam.ScreenToWorldPoint(Input.mousePosition);
-            currentPoint.z = 15;
-            // player1Position = GameObject.Find("Player1").transform.position;
-            // Debug.Log("player1Position" + player1Position);
-            tl.RenderLine(playerPosition, currentPoint);
-        }
-        if (Input.GetMouseButtonUp(0)){
-            endPoint = cam.ScreenToWorldPoint(Input.mousePosition);
-            // endPoint.z = 15;
-            // force = new Vector2(Mathf.Clamp(startPoint.x-endPoint.x, minPower.x, maxPower.x), Mathf.Clamp(startPoint.y-endPoint.y, minPower.y, maxPower.y));
-            force = new Vector2(Mathf.Clamp(-1 * (endPoint.x - playerPosition.x), minPower.x, maxPower.x), Mathf.Clamp(-1 * (endPoint.y - playerPosition.y), minPower.y, maxPower.y));
-            Shoot();
-            tl.vanish();
-            // Debug.Log("force");
-            // Debug.Log(force);
-            // rb.AddForce(force * power, ForceMode2D.Impulse);
-        }
+        endPoint = cam.ScreenToWorldPoint(Input.mousePosition);
+        force = new Vector2(Mathf.Clamp(-1 * (endPoint.x - playerPosition.x), minPower.x, maxPower.x), Mathf.Clamp(-1 * (endPoint.y - playerPosition.y), minPower.y, maxPower.y));
     }
     void Shoot()
     {
+        Debug.Log("shoot");
+        //tl.vanish();
         GameObject bullet = Instantiate(bulletPrefab, playerPosition, firePoint.rotation);
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
         rb.AddForce(force * power, ForceMode2D.Impulse);

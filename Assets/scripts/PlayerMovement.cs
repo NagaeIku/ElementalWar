@@ -7,7 +7,7 @@ public class PlayerMovement : MonoBehaviour
 {
     public int maxHealth = 20;
     public int currentHealth;
-
+    public float playermovementspeed=1;
 
     public HealthBar healthBar;
 
@@ -44,6 +44,18 @@ public class PlayerMovement : MonoBehaviour
             playerPosition = GameObject.Find("Player2").transform.position;
         mousePos.x = mousePos.x - playerPosition.x;
         mousePos.y = mousePos.y - playerPosition.y;
+        if (Input.GetKey(KeyCode.RightArrow)){
+          this.gameObject.transform.position+=new Vector3(0.1f*playermovementspeed,0,0);
+        }
+        if (Input.GetKey(KeyCode.LeftArrow)){
+          this.gameObject.transform.position-=new Vector3(0.1f*playermovementspeed,0,0);
+        }
+        if (Input.GetKey(KeyCode.UpArrow)){
+          this.gameObject.transform.position+=new Vector3(0,0.1f*playermovementspeed,0);
+        }
+        if (Input.GetKey(KeyCode.DownArrow)){
+          this.gameObject.transform.position-=new Vector3(0,0.1f*playermovementspeed,0);
+        }
         // Debug.Log(mousePos);
         // Debug.Log(player1Position);
     }
