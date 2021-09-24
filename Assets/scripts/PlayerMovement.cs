@@ -6,7 +6,6 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public int maxHealth = 20;
-
     public HealthBar healthBarOne;
     public HealthBar healthBarTwo;
 
@@ -29,16 +28,12 @@ public class PlayerMovement : MonoBehaviour
     Vector3 playerPosition;
     Vector2 movement;
     Vector2 mousePos;
-    Vector2 mousePos2;
-    // public bool inputEnabled = false;
     public static int turn = 1;
     void Update()
     {
-
         if(Input.GetKeyDown(KeyCode.Space)){
-        TakeDamage(2);
+            TakeDamage(2);
         }
-
         mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
         if(PlayerMovement.turn == 1)
             playerPosition = GameObject.Find("Player1").transform.position;
@@ -46,9 +41,6 @@ public class PlayerMovement : MonoBehaviour
             playerPosition = GameObject.Find("Player2").transform.position;
         mousePos.x = mousePos.x - playerPosition.x;
         mousePos.y = mousePos.y - playerPosition.y;
-        // Debug.Log(mousePos);
-        // Debug.Log(player1Position);
-
     }
     void Player1Turn()
     {
@@ -70,7 +62,7 @@ public class PlayerMovement : MonoBehaviour
     void FixedUpdate()
     {
         Vector2 lookDir = mousePos;
-        float angle = Mathf.Atan2(-1 * lookDir.y, -1 * lookDir.x) * Mathf.Rad2Deg;
+        float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg;
         rb.rotation = angle;
     }
 
