@@ -16,7 +16,6 @@ public class PlayerMovement : MonoBehaviour
         // healthBar.SetMaxHealth(maxHealth);
         healthBarOne = GameObject.Find("CanvasOne").GetComponentInChildren(typeof(HealthBar)) as HealthBar;;
         healthBarTwo = GameObject.Find("CanvasTwo").GetComponentInChildren(typeof(HealthBar)) as HealthBar;
-        
         healthBarOne.SetMaxHealth(maxHealth);
         healthBarTwo.SetMaxHealth(maxHealth);
 
@@ -28,21 +27,17 @@ public class PlayerMovement : MonoBehaviour
     Vector3 playerPosition;
     Vector2 movement;
     Vector2 mousePos;
-    public static int turn = 1;
     void Update()
     {
         if(Input.GetKeyDown(KeyCode.Space)){
             TakeDamage(2);
         }
         mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
-        if(PlayerMovement.turn == 1)
-            playerPosition = GameObject.Find("Player1").transform.position;
-        else
-            playerPosition = GameObject.Find("Player2").transform.position;
+        playerPosition = GameObject.Find("Player1").transform.position;
         mousePos.x = mousePos.x - playerPosition.x;
         mousePos.y = mousePos.y - playerPosition.y;
     }
-    void Player1Turn()
+    /*void Player1Turn()
     {
         PlayerMovement.turn = 1;
         GameObject.Find("Player1").GetComponent<PolygonCollider2D>().enabled = false;
@@ -58,7 +53,7 @@ public class PlayerMovement : MonoBehaviour
         GameObject.Find("Player1").GetComponent<PolygonCollider2D>().enabled = true;
         GameObject.Find("Player2").GetComponent<shooting>().enabled = true;
         GameObject.Find("Player1").GetComponent<shooting>().enabled = false;
-    }
+    }*/
     void FixedUpdate()
     {
         Vector2 lookDir = mousePos;
@@ -78,12 +73,7 @@ public class PlayerMovement : MonoBehaviour
 
     void TakeDamage(int damage)
     {
-        if (PlayerMovement.turn == 1) {
-            int currentHealth = healthBarTwo.GetHealth();
-            healthBarTwo.SetHealth(currentHealth - damage);
-        } else {
-            int currentHealth = healthBarOne.GetHealth();
-            healthBarOne.SetHealth(currentHealth - damage);
-        }
+        int currentHealth = healthBarTwo.GetHealth();
+        healthBarTwo.SetHealth(currentHealth - damage);
     }
 }

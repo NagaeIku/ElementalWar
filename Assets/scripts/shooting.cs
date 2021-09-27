@@ -28,10 +28,7 @@ public class shooting : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(PlayerMovement.turn == 1)
-            playerPosition = GameObject.Find("Player1").transform.position;
-        else
-            playerPosition = GameObject.Find("Player2").transform.position;
+        playerPosition = this.transform.position;
         endPoint = cam.ScreenToWorldPoint(Input.mousePosition);
         //force = new Vector2(Mathf.Clamp((endPoint.x - playerPosition.x), minPower.x, maxPower.x), Mathf.Clamp((endPoint.y - playerPosition.y), minPower.y, maxPower.y));
         bulletDir = new Vector2((endPoint.x - playerPosition.x), (endPoint.y - playerPosition.y));
