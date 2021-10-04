@@ -8,14 +8,17 @@ public class PlayerMovement : MonoBehaviour
     public int maxHealth = 20;
     public HealthBar healthBarOne;
     public HealthBar healthBarTwo;
+    public Weaponbase Weapon;
+
 
     void Start()
     {
-        
+
         // currentHealth = maxHealth;
         // healthBar.SetMaxHealth(maxHealth);
         healthBarOne = GameObject.Find("CanvasOne").GetComponentInChildren(typeof(HealthBar)) as HealthBar;;
         healthBarTwo = GameObject.Find("CanvasTwo").GetComponentInChildren(typeof(HealthBar)) as HealthBar;
+        Weapon = GameObject.Find("CanvasThree").GetComponentInChildren(typeof(Weaponbase)) as Weaponbase;
         healthBarOne.SetMaxHealth(maxHealth);
         healthBarTwo.SetMaxHealth(maxHealth);
 
@@ -29,14 +32,47 @@ public class PlayerMovement : MonoBehaviour
     Vector2 mousePos;
     void Update()
     {
+        int damage = 1;
+        if(Input.GetKey(KeyCode.Q)){
+          ChangeWeapon(damage);
+        }
         if(Input.GetKeyDown(KeyCode.Space)){
-            TakeDamage(2);
+            TakeDamage(damage);
         }
         mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
         playerPosition = GameObject.Find("Player1").transform.position;
         mousePos.x = mousePos.x - playerPosition.x;
         mousePos.y = mousePos.y - playerPosition.y;
+
+        //switch weapon
+
+
+
+        HUD.GetInstance().UpdateWeaponUI(Weapon.icon, Weapon.bulletPower);
     }
+    public void ChangeWeapon(int damage){
+      damage = damage*2;
+    }
+    /*
+    public void nextWeapon(int step){
+      var idx = (CurWeaponIdx + step + Weapons.Count)%Weapons.Count;
+      CurWeapon.gameObject.SetActive(false);
+      CurWeapon = Weapons[idx];
+      CurWeapon.gameObject.SetActive(true);
+      CurWeaponIdx = idx;
+    }
+    */
+/*
+    public void addWeapon(GameObject weapon){
+      if (Weapons.gameObject.name ==weapon.name){
+        return;
+      }
+      var new_weapon = GameObject.Instantiate(weapon);
+      new_weapon.name = weapon.name;
+      Weapons.Add(new_weapon.GetComponent<Weaponbase>());
+      nextWeapon(Weapons.Count -1 -CurWeaponIdx);
+    }
+    */
     /*void Player1Turn()
     {
         PlayerMovement.turn = 1;
