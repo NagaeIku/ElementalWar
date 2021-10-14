@@ -5,20 +5,20 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public int maxHealth = 20;
-    public HealthBar healthBarOne;
-    public HealthBar healthBarTwo;
-
+    public int maxHealth = 100;
+    public HealthBar healthBar;
+    /*public HealthBar healthBarOne;
+    public HealthBar healthBarTwo;*/
+    //public Weaponbase Weapon;
     void Start()
     {
-        
+      //  Weapon = GameObject.Find("CanvasThree").GetComponentInChildren(typeof(Weaponbase)) as Weaponbase;
         // currentHealth = maxHealth;
         // healthBar.SetMaxHealth(maxHealth);
-        healthBarOne = GameObject.Find("CanvasOne").GetComponentInChildren(typeof(HealthBar)) as HealthBar;;
+        /*healthBarOne = GameObject.Find("CanvasOne").GetComponentInChildren(typeof(HealthBar)) as HealthBar;;
         healthBarTwo = GameObject.Find("CanvasTwo").GetComponentInChildren(typeof(HealthBar)) as HealthBar;
         healthBarOne.SetMaxHealth(maxHealth);
-        healthBarTwo.SetMaxHealth(maxHealth);
-
+        healthBarTwo.SetMaxHealth(maxHealth);*/
     }
     public Rigidbody2D rb;
     public Camera cam;
@@ -32,11 +32,15 @@ public class PlayerMovement : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Space)){
             TakeDamage(2);
         }
+
         mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
-        playerPosition = GameObject.Find("Player1").transform.position;
+        playerPosition = this.transform.position;
         mousePos.x = mousePos.x - playerPosition.x;
         mousePos.y = mousePos.y - playerPosition.y;
     }
+
+
+
     /*void Player1Turn()
     {
         PlayerMovement.turn = 1;
@@ -73,7 +77,9 @@ public class PlayerMovement : MonoBehaviour
 
     void TakeDamage(int damage)
     {
-        int currentHealth = healthBarTwo.GetHealth();
-        healthBarTwo.SetHealth(currentHealth - damage);
+        
+        int currentHealth = healthBar.GetHealth();
+        healthBar.SetHealth(currentHealth - damage);
+        //Debug.Log();
     }
 }

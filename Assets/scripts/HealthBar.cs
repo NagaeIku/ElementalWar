@@ -7,8 +7,9 @@ public class HealthBar : MonoBehaviour
 {
 
     public Slider slider;
-
-
+    void Update() {
+      transform.rotation = Quaternion.identity;
+    }
     public void SetMaxHealth(int health)
     {
 
@@ -17,8 +18,9 @@ public class HealthBar : MonoBehaviour
     }
     public void SetHealth(int health)
     {
+      
       slider.value = health;
-
+      //Debug.Log(health);
     }
 
     //Return the current health of the player
