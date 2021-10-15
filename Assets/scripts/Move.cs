@@ -22,7 +22,7 @@ public class Move : MonoBehaviour
     void FixedUpdate(){
       rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
       RectTransform trans_HealthBar = HealthBar.GetComponent<RectTransform>();
-      //trans_HealthBar.position = rb.position;
-      trans_HealthBar.position += new Vector3(movement.x, movement.y, 0f) * moveSpeed;
+      trans_HealthBar.position = new Vector3(rb.position.x, rb.position.y+2f, 0f);
+      //trans_HealthBar.position += new Vector3(movement.x, movement.y, 0f);
     }
 }
