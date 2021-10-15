@@ -1,0 +1,9 @@
+cardType,number,cardName,atk,speed
+w,0,gun,60,100
+w,1,machinegun,30,60
+w,2,laser,20,70
+w,3,firegun,40,80
+w,4,watergun,70,30
+cardType,number,Name,effect,
+s,5,firebird,cause 20 damage,
+s,6,cure,restore 40 healthpoint,
