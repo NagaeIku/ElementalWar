@@ -21,9 +21,28 @@ public class OpenPackage : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        
     }
     public void OnClickOpen()
+    {   if(PlayerData.playerCoins < 2){
+            return;
+        }
+        else{
+            PlayerData.playerCoins -=2;
+        }
+        ClearPool();
+        for (int i = 0; i < 5; i++)
+        {
+            GameObject newCard = GameObject.Instantiate(cardPrefab, cardPool.transform);
+
+            newCard.GetComponent<CardDisplay>().card = CardStore.RandomCard();
+            cards.Add(newCard);
+        }
+        SaveCardDate();
+        PlayerData.SavePlayerData();
+
+    }
+    public void OnCardOpen()
     {   if(PlayerData.playerCoins < 2){
             return;
         }
