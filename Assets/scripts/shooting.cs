@@ -36,7 +36,7 @@ public class shooting : MonoBehaviour
             bulletDir = new Vector2((endPoint.x - playerPosition.x), (endPoint.y - playerPosition.y));
             bulletDir.Normalize();
             if (Time.frameCount%60 == 0){
-                Debug.Log(Time.frameCount);
+                // Debug.Log(Time.frameCount);
                 photonView.RPC("UpdateShoot", RpcTarget.All, speed*bulletDir);
             }
         }

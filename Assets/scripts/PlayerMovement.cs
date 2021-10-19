@@ -7,11 +7,16 @@ public class PlayerMovement : MonoBehaviour
 {
     public int maxHealth = 100;
     public HealthBar healthBar;
+
+    public static int currentHP;
+
     /*public HealthBar healthBarOne;
     public HealthBar healthBarTwo;*/
     //public Weaponbase Weapon;
     void Start()
     {
+        healthBar.SetMaxHealth(maxHealth);
+        currentHP = maxHealth;
       //  Weapon = GameObject.Find("CanvasThree").GetComponentInChildren(typeof(Weaponbase)) as Weaponbase;
         // currentHealth = maxHealth;
         // healthBar.SetMaxHealth(maxHealth);
@@ -37,6 +42,8 @@ public class PlayerMovement : MonoBehaviour
         playerPosition = this.transform.position;
         mousePos.x = mousePos.x - playerPosition.x;
         mousePos.y = mousePos.y - playerPosition.y;
+
+        healthBar.SetHealth(currentHP);
     }
 
 
@@ -77,9 +84,10 @@ public class PlayerMovement : MonoBehaviour
 
     void TakeDamage(int damage)
     {
-        
+        Debug.Log("take damage");   
         int currentHealth = healthBar.GetHealth();
         healthBar.SetHealth(currentHealth - damage);
-        //Debug.Log();
+        currentHP = healthBar.GetHealth();
     }
+
 }
