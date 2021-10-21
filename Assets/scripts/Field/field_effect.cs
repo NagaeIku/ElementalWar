@@ -1,19 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Photon.Pun;
 public class field_effect : MonoBehaviour
 {
     string cur_col = "transparent";
 
     SpriteRenderer sprite;
 
-
+    private PhotonView photonView;
     // Start is called before the first frame update
     void Start()
     {
         sprite = GetComponent<SpriteRenderer>();
-
+        photonView = GetComponent<PhotonView>();
     }
 
     // Update is called once per frame
@@ -23,6 +23,7 @@ public class field_effect : MonoBehaviour
         bullet_property bullet = other.GetComponent<bullet_property>();
         if (bullet != null && cur_col != "transparent") { 
             bullet.change_color(cur_col);
+            Debug.Log("you did come herre!");
         }
     }
 
@@ -31,28 +32,32 @@ public class field_effect : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.R))
         {
+            Debug.Log(photonView.IsMine);
+            
             string new_col = "red";
-            change_field(new_col);
             cur_col = new_col;
+            photonView.RPC("change_field", RpcTarget.All, new_col);
+            
+            
         }
 
         if (Input.GetKeyDown(KeyCode.B))
         {
             string new_col = "blue";
-            change_field(new_col);
+            photonView.RPC("change_field", RpcTarget.All, new_col);
             cur_col = new_col;
         }
 
         if (Input.GetKeyDown(KeyCode.Y))
         {
             string new_col = "yellow";
-            change_field(new_col);
+            photonView.RPC("change_field", RpcTarget.All, new_col);
             cur_col = new_col;
         }
 
 
     }
-
+    [PunRPC]
     void change_field(string col)
     {
         if (col == "red")
@@ -77,6 +82,8 @@ public class field_effect : MonoBehaviour
             sprite.color = new Color(0, 0, 0, 0);
         }
     }
+
+    
     
 
     

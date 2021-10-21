@@ -9,6 +9,7 @@ public class shooting : MonoBehaviour
 
     public Transform firePoint;
     public GameObject bulletPrefab;
+   
     //public int bulletSpeed = 10f; //= 10f;
     /*public Vector2 minPower;
     public Vector2 maxPower;*/
@@ -44,9 +45,13 @@ public class shooting : MonoBehaviour
     [PunRPC]
     public void UpdateShoot(Vector2 bulletForce)
     {
-        GameObject bullet = Instantiate(bulletPrefab, firePoint.position, transform.rotation);
+        GameObject bullet = Instantiate("Bullet1", firePoint.position, transform.rotation);
+        Debug.Log("Pho" + PhotonNetwork.IsMasterClient);
+
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
+        
         Physics2D.IgnoreCollision(bullet.GetComponent<Collider2D>(), GetComponent<Collider2D>());
+        
         rb.AddForce(bulletForce, ForceMode2D.Impulse);
         WaitAndDestroy(bullet);
     }

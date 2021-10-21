@@ -24,9 +24,24 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         PhotonNetwork.JoinOrCreateRoom("Room", new RoomOptions {MaxPlayers = 2}, TypedLobby.Default);
     }
     public override void OnJoinedRoom(){
-        Debug.Log("Player2 joined");
-        PhotonNetwork.Instantiate("Player1", transform.position, Quaternion.identity);
+        if (PhotonNetwork.IsMasterClient)
+        
+        {
+            GameObject Player1 = PhotonNetwork.Instantiate("Player1", new Vector3(-15, 0, -5), Quaternion.identity);
+            Player1.name = "Player1";
+        }
+        else
+        {
+            GameObject Player2 = PhotonNetwork.Instantiate("Player1", new Vector3(15, 0, -5), Quaternion.identity);
+            Player2.name = "Player2";
+        }
+        
+        ExitGames.Client.Photon.Hashtable ht = new ExitGames.Client.Photon.Hashtable();
+        ht["what"] = 1;
+        PhotonNetwork.LocalPlayer.CustomProperties = ht;
+        Debug.Log(PhotonNetwork.IsMasterClient);
     }
+
     // UnityEngine.Analytics
     #if ENABLE_CLOUD_SERVICES_ANALYTICS
     void OnSessionStateChanged(AnalyticsSessionState sessionState, long sessionId, long sessionElapsedTime, bool sessionChanged)

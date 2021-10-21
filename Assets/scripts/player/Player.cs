@@ -65,6 +65,7 @@ public class Player : MonoBehaviour
         bool isHitByBullet = other.gameObject.tag == "Player";
         //if player is hit, destroy bullet and change healthBar
         if (isHitByBullet) {
+            bullet_property b_p = other.gameObject.GetComponent<bullet_property>();
             TakeDamage(2*ChangeWeapon.bulletPower);
             Destroy(other.gameObject, 0.0f);
         }
